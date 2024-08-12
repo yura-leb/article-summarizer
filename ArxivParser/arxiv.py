@@ -2,8 +2,6 @@ import requests
 import re 
 import os 
 import math
-import pandas as pd
-import numpy as np
 from bs4 import BeautifulSoup as bs
 import matplotlib.pyplot as plt
 import urllib3
@@ -116,7 +114,7 @@ class Arxiv:
         categories = list(data_was.keys())
         values_was = list(map(int, [i[0] for i in merged_data.values()]))
         values_became = list(map(int, [i[1] for i in merged_data.values()]))
-        index = np.arange(len(categories))
+        index = list(range(len(categories)))
         bar_height = 0.35
 
         with plt.style.context('dark_background'):
