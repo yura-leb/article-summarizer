@@ -1,5 +1,5 @@
 import os
-from digest import PromptsContainer
+from PromptsContainer import PromptsContainer
 from sys import argv
 
 def generate_micro_conclusions(dir: str, output_filename: str):

@@ -1,7 +1,7 @@
 import bibtexparser
 import pandas as pd
 from tqdm import tqdm
-import digest as dg
+import PromptsContainer as dg
 import requests
 import json
 import os
@@ -41,10 +41,12 @@ months = {
 if __name__ == "__main__":
     
     # folder must be formatted as Month_Year. Example: June_2024
-    if len(argv) == 2:
+    if len(argv) == 3:
         folder = argv[1]
+        output_filename = argv[2]
     else:
         folder = input("Enter folder name: formatted like 'June_2024'")
+        output_filename = input("Enter output filename: ")
     month, year = folder.split('_')
 
     with open(f'data/{folder}/nlp.bib', 'r') as bibtex_file:
@@ -89,5 +91,5 @@ if __name__ == "__main__":
 
         parse_result.append(result)
 
-    with open(f'data/{folder}/output.json', 'w') as f:
+    with open(f'data/{folder}/{output_filename}', 'w') as f:
         json.dump(parse_result, f)

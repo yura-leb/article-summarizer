@@ -62,11 +62,12 @@ class PromptsContainer:
 
         dotenv.load_dotenv()
         self.llm = GigaChat(
-            credentials=os.getenv("**YOUR_GIGACHAT_KEY**"),
+            credentials=os.getenv("GIGACHAT_CREDENTIALS"),
             verify_ssl_certs=False,
             timeout=6000,
             model="GigaChat-Pro",
             temperature=0.1,
+            scope=os.getenv("GIGACHAT_API_SCOPE")
         )
 
 
@@ -78,7 +79,9 @@ class PromptsContainer:
         loader = PyPDFLoader(filename)
         documents = loader.load()
         all_docs = documents[0].page_content
-        for doc in documents[:10]:
+        
+        # You can add more pages if you want
+        for doc in documents[:1]:
             all_docs += "\n" + doc.page_content
             
         return prompt + f'\n\n"{all_docs}"\n\n' + prompt
