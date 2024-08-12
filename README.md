@@ -50,4 +50,4 @@
 
 
 
-PS: спасибо Антону Переходову за написание основной части ArxivParser
+PS: спасибо [Антону Переходову](https://github.com/PerekhodovAnton) за написание основной части ArxivParser
