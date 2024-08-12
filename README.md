@@ -44,7 +44,7 @@
 
   Пример:
 
-  `python3 Summarizer/generate_tables.py June2024 output.json`
+  `python3 Summarizer/generate_tables.py June_2024 output.json`
 
 
 
