@@ -29,10 +29,12 @@
 
 ## Summarizer
 
-* PromptsContainer содержит промпты для генерации саммари и полей таблицы. Класс отвечает за обращение к LLM (GigaChat). Для работы с ним понадобится api-ключ, который можно получить на https://developers.sber.ru/portal/products/gigachat-api. Далее требуется создать файл .env (наподобие .env.template), в который требуется добавить ключ и scope.
+* PromptsContainer содержит промпты для генерации саммари и полей таблицы. Класс отвечает за обращение к LLM (GigaChat). Для работы с ним понадобится api-ключ, который можно получить на https://developers.sber.ru/portal/products/gigachat-api.
+  Далее требуется создать файл .env (наподобие .env.template), в который требуется добавить ключ и scope.
+  
 * generate_conclusions генерирует саммари длиной в 1 предложение для всех статей в директории.
   
-  `python3 Summarizer/generate_conclusions.py <директория с pdf> <json файл вывода>`
+  `python3 Summarizer/generate_conclusions.py <директория с pdf> <txt файл вывода>`
 
   Пример:
 
