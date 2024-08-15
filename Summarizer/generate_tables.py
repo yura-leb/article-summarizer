@@ -92,4 +92,4 @@ if __name__ == "__main__":
         parse_result.append(result)
 
     with open(f'data/{folder}/{output_filename}', 'w') as f:
-        json.dump(parse_result, f)
+        json.dump(parse_result, f, ensure_ascii=False, indent=4)
