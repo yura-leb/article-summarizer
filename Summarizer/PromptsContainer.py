@@ -71,7 +71,7 @@ class PromptsContainer:
         )
 
 
-    def _to_query(self, prompt: str, filename: str) -> str:
+    def _to_query(self, prompt: str, filename: str, num_pages: int = 10) -> str:
         if not os.path.exists(filename):
             logging.error(f'_to_query: No such file: {filename}')
             return ""
@@ -80,8 +80,7 @@ class PromptsContainer:
         documents = loader.load()
         all_docs = documents[0].page_content
         
-        # You can add more pages if you want
-        for doc in documents[:1]:
+        for doc in documents[:num_pages]:
             all_docs += "\n" + doc.page_content
             
         return prompt + f'\n\n"{all_docs}"\n\n' + prompt
@@ -94,7 +93,7 @@ class PromptsContainer:
         return self._get_answer(self._to_query(prompt, filename))
     
     def apply_micro_conclusions_prompt_to_article(self, filename: str) -> str:
-        return self._get_answer(self._to_query(self.prompts["micro_conclusions"], filename))
+        return self._get_answer(self._to_query(self.prompts["micro_conclusions"], filename, 1))
 
     def apply_translation_prompt_to_article(self, prompt: str) -> str:
         return self._get_answer(self.translation_prompt + prompt)
