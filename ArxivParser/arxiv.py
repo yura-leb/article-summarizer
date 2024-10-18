@@ -157,14 +157,13 @@ class Arxiv:
             titles.append(title)
             links.append(url)
             try:
-                wget.download(url + '.pdf', path_to_save + "/" + title + ".pdf")
-
+                wget.download(url + '.pdf', path_to_save + os.sep + title + ".pdf")
             except:
                 print(f'{url}.pdf is not downloaded')
                 not_downloaded.append(url + '.pdf')
                 pass
 
-        return not_downloaded, links
+        return not_downloaded, titles, links
     
     @classmethod
     def count_pages(cls, path_to_files: str) -> int:

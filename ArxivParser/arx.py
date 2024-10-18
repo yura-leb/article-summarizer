@@ -4,7 +4,12 @@ import os
 from datetime import datetime
 
 def download_pdfs(keys: list, start: str, end: str, pdf_dir="pdfs"):
-    not_downloaded, links = Arxiv.save_pdfs_and_get_pages(start, end, pdf_dir, keys)
+    not_downloaded, titles, links = Arxiv.save_pdfs_and_get_pages(start, end, pdf_dir, keys)
+
+    with open(pdf_dir + os.sep + "articles.txt", "w") as f:
+        for title, link in zip(titles, links):
+            if link not in not_downloaded:
+                f.write(title + "\n" + link + "\n\n")
     print()
     print("Articles downloaded")
     print("Not downloaded:", not_downloaded)
