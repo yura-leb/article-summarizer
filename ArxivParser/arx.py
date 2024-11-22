@@ -1,7 +1,7 @@
 import sys
-from arxiv import Arxiv
+from Arxiv import Arxiv
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 
 def download_pdfs(keys: list, start: str, end: str, pdf_dir="pdfs"):
     not_downloaded, titles, links = Arxiv.save_pdfs_and_get_pages(start, end, pdf_dir, keys)
@@ -15,12 +15,11 @@ def download_pdfs(keys: list, start: str, end: str, pdf_dir="pdfs"):
     print("Not downloaded:", not_downloaded)
 
 
-def validate_date(date_text):
+def validate_date(start_date: datetime, end_date: datetime):
     """Validate the date format as YYYY-MM-DD."""
-    try:
-        datetime.strptime(date_text, '%Y-%m-%d')
+    if start_date <= end_date and start_date < datetime.now(timezone.utc):
         return True
-    except ValueError:
+    else:
         return False
 
 def validate_directory(directory):
@@ -33,16 +32,12 @@ def main():
         print("<start_date> formatted YYYY-MM-DD")
         print("<end_date>   formatted YYYY-MM-DD")
 
-    start_date = sys.argv[1]
-    end_date = sys.argv[2]
+    start_date = datetime.strptime(sys.argv[1], "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    end_date = datetime.strptime(sys.argv[2], "%Y-%m-%d").replace(tzinfo=timezone.utc)
     directory = sys.argv[3]
 
-    if not validate_date(start_date):
-        print(f"Error: Start date '{start_date}' is not in the correct format (YYYY-MM-DD).")
-        sys.exit(1)
-
-    if not validate_date(end_date):
-        print(f"Error: End date '{end_date}' is not in the correct format (YYYY-MM-DD).")
+    if not validate_date(start_date, end_date):
+        print(f"Error: Invalid date range")
         sys.exit(1)
 
     if not validate_directory(directory):
